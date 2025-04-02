@@ -1,56 +1,21 @@
-```markdown
 # RecruiterConnect
 
-RecruiterConnect é uma aplicação React que facilita a conexão com recrutadores através de links do LinkedIn fornecidos em um arquivo CSV.
+RecruiterConnect é uma aplicação React que facilita a conexão com recrutadores através de links do LinkedIn fornecidos em um arquivo CSV.&#8203;:contentReference[oaicite:0]{index=0}
 
 ## 🚀 Funcionalidades
 
-- **Importação de CSV:**Carregue um arquivo CSV contendo links do LinkedIn
-- **Abertura de Perfis:**Cada link é representado por um botão que abre o perfil correspondente em uma nova aba
-- **Indicação de Interação:**Botões mudam de cor para vermelho após serem clicados, indicando que o perfil já foi visitado
-- **Persistência de Dados:**As interações são armazenadas no `localStorage`, garantindo que as informações não sejam perdidas após recarregar a página
-- **Paginação:**Navegue facilmente pela lista de recrutadores com paginação a cada 3 botões
+- **Importação de CSV:** :contentReference[oaicite:1]{index=1}&#8203;:contentReference[oaicite:2]{index=2}
+- **Abertura de Perfis:** :contentReference[oaicite:3]{index=3}&#8203;:contentReference[oaicite:4]{index=4}
+- **Indicação de Interação:** :contentReference[oaicite:5]{index=5}&#8203;:contentReference[oaicite:6]{index=6}
+- **Persistência de Dados:** :contentReference[oaicite:7]{index=7}&#8203;:contentReference[oaicite:8]{index=8}
+- **Paginação:** :contentReference[oaicite:9]{index=9}&#8203;:contentReference[oaicite:10]{index=10}
 
 ## 🛠️ Tecnologias Utilizadas
 
- **React*
- **TypeScript*
- **Tailwind CSS*
- **PapaParse*
+- :contentReference[oaicite:11]{index=11}&#8203;:contentReference[oaicite:12]{index=12}
+- :contentReference[oaicite:13]{index=13}&#8203;:contentReference[oaicite:14]{index=14}
+- :contentReference[oaicite:15]{index=15}&#8203;:contentReference[oaicite:16]{index=16}
+- :contentReference[oaicite:17]{index=17}&#8203;:contentReference[oaicite:18]{index=18}
 
-## 📦 Instalação
 
-. Clone o repositóro:
 
-   ```bash
-   git clone https://github.com/seu-usuario/recruiterconnect.git
-   ```
-
-. Navegue até o diretório do projeo:
-
-   ```bash
-   cd recruiterconnect
-   ```
-
-. Instale as dependêncis:
-
-   ```bash
-   npm install
-   ```
-
-. Inicie o servidor de desenvolvimeno:
-
-   ```bash
-   npm run dev
-   ```
-
-. Acesse `http://localhost:3000` no seu navegadr.
-
-## 📄 Licena
-
-Este projeto está licenciado sob a Licença IT.
-
---
-
-*Conecte-se com recrutadores de forma eficiente e organizada com o RecruiterConnct!*
-``` 
