@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Recruiter } from '../fileUploader';
-import { RequestInfo } from '../requestInfo';
 
 interface RecruiterItemProps {
 	recruiter: Recruiter;
@@ -45,7 +44,7 @@ export function RecruiterItem({ recruiter }: RecruiterItemProps) {
 				{requestSent.sent ? (
 					<button
 						onClick={handleClick}
-						className={`text-white px-3 py-1 rounded cursor-pointer bg-red-500`}>
+						className='text-white px-3 py-1 rounded bg-red-500 cursor-not-allowed'>
 						Solicitação Enviada
 					</button>
 				) : (
@@ -55,8 +54,6 @@ export function RecruiterItem({ recruiter }: RecruiterItemProps) {
 						Abrir no LinkedIn
 					</button>
 				)}
-
-				{requestSent.sent && requestSent.date && <RequestInfo date={requestSent.date} />}
 			</div>
 		</div>
 	);
