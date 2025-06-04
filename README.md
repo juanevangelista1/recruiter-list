@@ -1,56 +1,107 @@
-```markdown
-# RecruiterConnect
+# Recruiter List
 
-RecruiterConnect é uma aplicação React que facilita a conexão com recrutadores através de links do LinkedIn fornecidos em um arquivo CSV.
+Recruiter List é uma aplicação web moderna desenvolvida com Next.js que simplifica o gerenciamento de contatos de recrutadores do LinkedIn. A ferramenta permite importar links de recrutadores através de arquivos CSV, facilitando o processo de networking e acompanhamento de interações.
 
-## 🚀 Funcionalidades
+## ✨ Funcionalidades
 
-- **Importação de CSV:**Carregue um arquivo CSV contendo links do LinkedIn
-- **Abertura de Perfis:**Cada link é representado por um botão que abre o perfil correspondente em uma nova aba
-- **Indicação de Interação:**Botões mudam de cor para vermelho após serem clicados, indicando que o perfil já foi visitado
-- **Persistência de Dados:**As interações são armazenadas no `localStorage`, garantindo que as informações não sejam perdidas após recarregar a página
-- **Paginação:**Navegue facilmente pela lista de recrutadores com paginação a cada 3 botões
+- **Upload de Arquivos CSV**: Interface intuitiva para importar arquivos CSV contendo links do LinkedIn
+- **Gerenciamento de Links**: Visualização organizada dos links de recrutadores
+- **Controle de Interações**:
+  - Botões que mudam de estado após a interação
+  - Persistência das interações no localStorage
+  - Indicador visual de perfis já visitados
+- **Interface Responsiva**: Design moderno e adaptável a diferentes dispositivos
+- **SEO Otimizado**: Metadados configurados para melhor visibilidade em mecanismos de busca
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Stack Tecnológica
 
- **React*
- **TypeScript*
- **Tailwind CSS*
- **PapaParse*
+- **Next.js 14**: Framework React com renderização híbrida
+- **TypeScript**: Tipagem estática para maior segurança e manutenibilidade
+- **Tailwind CSS**: Estilização moderna e responsiva
+- **PapaParse**: Parser eficiente para arquivos CSV
+- **Geist Font**: Tipografia moderna e legível
 
-## 📦 Instalação
+## 🚀 Como Usar
 
-. Clone o repositóro:
+1. **Preparação do Arquivo CSV**:
+
+   - Crie um arquivo CSV com uma coluna contendo os links do LinkedIn
+   - Cada linha deve conter um link válido do LinkedIn
+
+2. **Importação**:
+
+   - Acesse a aplicação
+   - Clique no botão "Faça o upload de um arquivo .csv"
+   - Selecione seu arquivo CSV
+
+3. **Gerenciamento**:
+   - Os links serão exibidos em uma lista organizada
+   - Clique em "Abrir no LinkedIn" para acessar o perfil
+   - O botão mudará para "Solicitação Enviada" após a interação
+
+## 💻 Desenvolvimento
+
+1. **Clone o repositório**:
 
    ```bash
-   git clone https://github.com/seu-usuario/recruiterconnect.git
+   git clone https://github.com/seu-usuario/recruiter-list.git
    ```
 
-. Navegue até o diretório do projeo:
-
-   ```bash
-   cd recruiterconnect
-   ```
-
-. Instale as dependêncis:
+2. **Instale as dependências**:
 
    ```bash
    npm install
    ```
 
-. Inicie o servidor de desenvolvimeno:
+3. **Inicie o servidor de desenvolvimento**:
 
    ```bash
    npm run dev
    ```
 
-. Acesse `http://localhost:3000` no seu navegadr.
+4. **Acesse** `http://localhost:3000`
 
-## 📄 Licena
+## 🔧 Estrutura do Projeto
 
-Este projeto está licenciado sob a Licença IT.
+```
+src/
+├── app/                 # Configurações e layouts da aplicação
+├── components/          # Componentes React reutilizáveis
+│   ├── fileUploader/   # Componente de upload de arquivos
+│   ├── recruiterItem/  # Item individual de recrutador
+│   └── recruiterList/  # Lista de recrutadores
+└── styles/             # Estilos globais
+```
 
---
+## 🤝 Contribuindo
 
-*Conecte-se com recrutadores de forma eficiente e organizada com o RecruiterConnct!*
-``` 
+O projeto está aberto para contribuições! Algumas áreas que podem ser melhoradas:
+
+- [ ] Adicionar suporte para mais formatos de arquivo (Excel, Google Sheets)
+- [ ] Implementar sistema de categorização de recrutadores
+- [ ] Adicionar funcionalidade de exportação de dados
+- [ ] Criar sistema de tags para organizar contatos
+- [ ] Implementar autenticação de usuários
+- [ ] Adicionar estatísticas de interação
+- [ ] Melhorar a acessibilidade
+- [ ] Adicionar testes automatizados
+
+Para contribuir:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+Desenvolvido com ❤️ para facilitar o networking profissional. Contribuições são sempre bem-vindas!
+
+```
+
+```

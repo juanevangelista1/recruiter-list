@@ -7,11 +7,9 @@ interface RecruiterItemProps {
 }
 
 export function RecruiterItem({ recruiter }: RecruiterItemProps) {
-	// Usamos o campo "nome" como identificador único, já que o CSV contém apenas os links.
 	const storageKey = `recruiter_${recruiter.nome}`;
 	const [requestSent, setRequestSent] = useState<{ sent: boolean; date?: Date }>({ sent: false });
 
-	// No mount, lemos do localStorage para verificar se já foi clicado
 	useEffect(() => {
 		const storedData = localStorage.getItem(storageKey);
 		if (storedData) {
@@ -27,11 +25,10 @@ export function RecruiterItem({ recruiter }: RecruiterItemProps) {
 	}, [storageKey]);
 
 	const handleClick = () => {
-		let url = recruiter.nome; // recruiter.nome contém o link
+		let url = recruiter.nome;
 		if (!url.startsWith('http')) {
 			url = 'https://' + url;
 		}
-		// Abre o link em nova aba
 		window.open(url, '_blank', 'noopener,noreferrer');
 		const now = new Date();
 		setRequestSent({ sent: true, date: now });
@@ -50,7 +47,7 @@ export function RecruiterItem({ recruiter }: RecruiterItemProps) {
 				) : (
 					<button
 						onClick={handleClick}
-						className={`text-white px-3 py-1 rounded cursor-pointer bg-green-500`}>
+						className='text-white px-3 py-1 rounded cursor-pointer bg-green-500'>
 						Abrir no LinkedIn
 					</button>
 				)}

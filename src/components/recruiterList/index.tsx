@@ -1,5 +1,3 @@
-// components/RecruiterList.tsx
-
 import { Recruiter } from '../fileUploader';
 import { RecruiterItem } from '../recruiterItem';
 

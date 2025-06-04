@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
 export interface Recruiter {
 	id: number;
@@ -12,50 +12,72 @@ interface FileUploaderProps {
 }
 
 export function FileUploader({ onDataLoaded }: FileUploaderProps) {
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [fileName, setFileName] = useState<string>('Faça o upload de um arquivo .csv');
+
 	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
+
+		setFileName(file.name);
 
 		const reader = new FileReader();
 		reader.onload = (event) => {
 			const text = event.target?.result;
 			if (typeof text === 'string') {
-				Papa.parse(text, {
-					header: false, // Não há cabeçalho, pois só há links
+				Papa.parse<string[]>(text, {
+					header: false,
 					complete: (results) => {
-						console.log('Dados extraídos:', results.data);
-						// Mapeia cada linha para um objeto Recruiter
 						const mappedData = results.data
-							.map((row: any, index: number) => {
-								// Verifica se a linha não está vazia
+							.map((row, index) => {
 								if (!row[0]) return null;
 								const link = row[0].toString().trim();
 								return {
 									id: index,
 									linkedin: link,
-									nome: link, // Se não houver um nome, podemos exibir o próprio link
+									nome: link,
 								};
 							})
-							.filter(Boolean);
+							.filter((item): item is Recruiter => item !== null);
 						onDataLoaded(mappedData);
 					},
-					error: (error) => {
+					error: (error: Error) => {
 						console.error('Erro no parsing do arquivo:', error);
+						setFileName('Escolha o arquivo');
 					},
 				});
 			}
 		};
+		reader.onerror = () => {
+			console.error('Erro ao ler o arquivo');
+			setFileName('Escolha o arquivo');
+		};
 		reader.readAsText(file);
+	};
+
+	const handleButtonClick = () => {
+		fileInputRef.current?.click();
 	};
 
 	return (
 		<div className='mb-4'>
-			<input
-				type='file'
-				accept='.csv'
-				onChange={handleFileChange}
-				className='border p-2'
-			/>
+			<label className='mb-2 flex gap-1.5 flex-col'>
+				<div className='relative'>
+					<input
+						ref={fileInputRef}
+						type='file'
+						accept='.csv,.tsv, .xls, .xlsx'
+						onChange={handleFileChange}
+						className='hidden'
+					/>
+					<button
+						type='button'
+						onClick={handleButtonClick}
+						className='w-[350px] border p-3 rounded-md cursor-pointer mt-1 bg-white/10 text-white hover:bg-white/20 transition-colors truncate'>
+						{fileName}
+					</button>
+				</div>
+			</label>
 		</div>
 	);
 }

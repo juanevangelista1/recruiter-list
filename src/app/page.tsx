@@ -1,4 +1,3 @@
-// app/page.tsx (ou pages/index.tsx dependendo da estrutura do seu projeto)
 'use client';
 import { FileUploader, Recruiter } from '@/components/fileUploader';
 import { RecruiterList } from '@/components/recruiterList';
