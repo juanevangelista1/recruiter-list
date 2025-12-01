@@ -1,22 +1,21 @@
-// 'use client';
+'use client';
 
-// import { useEffect, useState } from 'react';
+interface RequestInfoProps {
+	date: Date;
+}
 
-// // components/RequestInfo.tsx
-// interface RequestInfoProps {
-// 	date: Date;
-// }
+export function RequestInfo({ date }: RequestInfoProps) {
+	if (!date || !(date instanceof Date && !isNaN(date.getTime()))) {
+		return null;
+	}
 
-// export function RequestInfo({ date }: RequestInfoProps) {
-// 	const [data, setDate] = useState<string>('');
-
-// 	useEffect(() => {
-// 		const now = new Date();
-// 		setDate(now.toLocaleString());
-// 	}, []);
-// 	return (
-// 		<div className='ml-4 text-sm text-gray-600'>
-// 			Solicitação enviada em {date.toLocaleDateString()} às {date.toLocaleTimeString()}
-// 		</div>
-// 	);
-// }
+	return (
+		<div className='ml-4 text-sm text-gray-500 italic flex items-center gap-1.5'>
+			<span className='text-green-500'>✔</span>
+			<span>
+				Solicitação enviada em {date.toLocaleDateString()} às{' '}
+				{date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+			</span>
+		</div>
+	);
+}
