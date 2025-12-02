@@ -1,5 +1,6 @@
 'use client';
-import { FileUploader, Recruiter } from '@/components/fileUploader';
+import { Recruiter } from '@/types';
+import { FileUploader } from '@/components/fileUploader';
 import { RecruiterList } from '@/components/recruiterList';
 
 import { useState } from 'react';
@@ -9,8 +10,10 @@ export default function Home() {
 
 	return (
 		<div className='container mx-auto p-4'>
-			<h1 className='text-2xl font-bold mb-4'>Lista de Recrutadores</h1>
-			<FileUploader onDataLoaded={setRecruiters} />
+			<h1 className='text-3xl font-bold mb-6 text-center text-white'>Recruiter List Manager 📋</h1>
+			<div className='flex flex-col items-center'>
+				<FileUploader onDataLoaded={setRecruiters} />
+			</div>
 			{recruiters.length > 0 && <RecruiterList recruiters={recruiters} />}
 		</div>
 	);
