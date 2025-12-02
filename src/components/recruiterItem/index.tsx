@@ -1,56 +1,55 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { Recruiter } from '../fileUploader';
+import { Recruiter } from '@/types';
+import { useRecruiterTracking } from '@/hooks/useRecruiterTracking';
+import { sanitizeUrl } from '@/utils/url';
+import { RequestInfo } from '../requestInfo';
 
 interface RecruiterItemProps {
 	recruiter: Recruiter;
 }
 
 export function RecruiterItem({ recruiter }: RecruiterItemProps) {
-	const storageKey = `recruiter_${recruiter.nome}`;
-	const [requestSent, setRequestSent] = useState<{ sent: boolean; date?: Date }>({ sent: false });
-
-	useEffect(() => {
-		const storedData = localStorage.getItem(storageKey);
-		if (storedData) {
-			try {
-				const parsed = JSON.parse(storedData);
-				if (parsed.sent && parsed.date) {
-					setRequestSent({ sent: true, date: new Date(parsed.date) });
-				}
-			} catch (error) {
-				console.error('Erro ao ler dados do localStorage:', error);
-			}
-		}
-	}, [storageKey]);
+	const [trackingState, markAsSent] = useRecruiterTracking(recruiter.linkedin);
+	const { sent, date } = trackingState;
 
 	const handleClick = () => {
-		let url = recruiter.nome;
-		if (!url.startsWith('http')) {
-			url = 'https://' + url;
-		}
+		const url = sanitizeUrl(recruiter.linkedin);
+
 		window.open(url, '_blank', 'noopener,noreferrer');
-		const now = new Date();
-		setRequestSent({ sent: true, date: now });
-		localStorage.setItem(storageKey, JSON.stringify({ sent: true, date: now.toISOString() }));
+
+		if (!sent) {
+			markAsSent();
+		}
 	};
 
+	const buttonClasses = sent
+		? 'text-white px-3 py-1 rounded bg-red-500 cursor-not-allowed hover:bg-red-600 transition-colors'
+		: 'text-white px-3 py-1 rounded cursor-pointer bg-green-500 hover:bg-green-600 transition-colors';
+
+	const buttonText = sent ? 'Solicitação Enviada' : 'Abrir no LinkedIn';
+
 	return (
-		<div className='mb-2 flex items-center justify-between'>
+		<div className='mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full p-2 border-b border-gray-700'>
+			<div className='flex flex-col mb-2 sm:mb-0'>
+				<a
+					href={sanitizeUrl(recruiter.linkedin)}
+					target='_blank'
+					rel='noopener noreferrer'
+					className='text-lg font-medium hover:text-blue-400 truncate w-64'
+					title={recruiter.linkedin}>
+					{recruiter.nome}
+				</a>
+				<span className='text-xs text-gray-500 truncate w-64'>{recruiter.linkedin}</span>
+			</div>
+
 			<div className='flex items-center space-x-4'>
-				{requestSent.sent ? (
-					<button
-						onClick={handleClick}
-						className='text-white px-3 py-1 rounded bg-red-500 cursor-not-allowed'>
-						Solicitação Enviada
-					</button>
-				) : (
-					<button
-						onClick={handleClick}
-						className='text-white px-3 py-1 rounded cursor-pointer bg-green-500'>
-						Abrir no LinkedIn
-					</button>
-				)}
+				<button
+					onClick={handleClick}
+					className={buttonClasses}
+					disabled={sent}>
+					{buttonText}
+				</button>
+
+				{date && <RequestInfo date={date} />}
 			</div>
 		</div>
 	);
