@@ -12,11 +12,12 @@ export function RecruiterList({ recruiters, totalCount }: RecruiterListProps) {
 			<h2 className='text-xl font-semibold mb-4 text-white'>
 				Lista de Recrutadores ({totalCount} no total)
 			</h2>
-			<ol className='list-decimal pl-6 flex flex-col items-start w-full divide-y divide-gray-700'>
+
+			<ol className='list-decimal pl-6 w-full divide-y divide-gray-700'>
 				{recruiters.map((recruiter) => (
 					<li
 						key={recruiter.linkedin}
-						className='mx-5 w-full py-3'>
+						className='w-full py-3 pr-2'>
 						<RecruiterItem recruiter={recruiter} />
 					</li>
 				))}

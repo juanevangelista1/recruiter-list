@@ -17,6 +17,7 @@ function getPaginationRange(currentPage: number, totalPages: number, siblings: n
 	if (start > 2) {
 		range.push(null);
 	}
+
 	for (let i = start; i <= end; i++) {
 		range.push(i);
 	}
