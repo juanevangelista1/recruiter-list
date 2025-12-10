@@ -1,3 +1,4 @@
+'use client';
 import { Recruiter } from '@/types';
 import { useRecruiterTracking } from '@/hooks/useRecruiterTracking';
 import { sanitizeUrl } from '@/utils/url';
@@ -13,9 +14,7 @@ export function RecruiterItem({ recruiter }: RecruiterItemProps) {
 
 	const handleClick = () => {
 		const url = sanitizeUrl(recruiter.linkedin);
-
 		window.open(url, '_blank', 'noopener,noreferrer');
-
 		if (!sent) {
 			markAsSent();
 		}
@@ -28,20 +27,20 @@ export function RecruiterItem({ recruiter }: RecruiterItemProps) {
 	const buttonText = sent ? 'Solicitação Enviada' : 'Abrir no LinkedIn';
 
 	return (
-		<div className='mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between w-full p-2 border-b border-gray-700'>
-			<div className='flex flex-col mb-2 sm:mb-0'>
+		<div className='flex items-center justify-between w-full'>
+			<div className='flex flex-col flex-grow min-w-0 mr-4'>
 				<a
 					href={sanitizeUrl(recruiter.linkedin)}
 					target='_blank'
 					rel='noopener noreferrer'
-					className='text-lg font-medium hover:text-blue-400 truncate w-64'
+					className='text-lg font-medium hover:text-blue-400 truncate w-full'
 					title={recruiter.linkedin}>
 					{recruiter.nome}
 				</a>
-				<span className='text-xs text-gray-500 truncate w-64'>{recruiter.linkedin}</span>
+				<span className='text-sm text-gray-400 truncate w-full'>{recruiter.linkedin}</span>
 			</div>
 
-			<div className='flex items-center space-x-4'>
+			<div className='flex items-center space-x-4 flex-shrink-0'>
 				<button
 					onClick={handleClick}
 					className={buttonClasses}
