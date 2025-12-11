@@ -1,15 +1,16 @@
 import { useRef } from 'react';
-import { Recruiter } from '@/types';
+import { AppData } from '@/types';
 import { useCsvParser } from '@/hooks/useCsvParser';
 
 interface FileUploaderProps {
-	onDataLoaded: (data: Recruiter[]) => void;
+	onDataLoaded: (data: AppData) => void;
+	buttonTitle: string;
 }
 
-export function FileUploader({ onDataLoaded }: FileUploaderProps) {
+export function FileUploader({ onDataLoaded, buttonTitle }: FileUploaderProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const { fileName, isLoading, handleFileChange } = useCsvParser(onDataLoaded);
+	const { isLoading, handleFileChange } = useCsvParser(onDataLoaded);
 
 	const handleButtonClick = () => {
 		fileInputRef.current?.click();
@@ -22,7 +23,7 @@ export function FileUploader({ onDataLoaded }: FileUploaderProps) {
 					<input
 						ref={fileInputRef}
 						type='file'
-						accept='.csv,.tsv'
+						accept='.csv,.tsv,.xls,.xlsx'
 						onChange={handleFileChange}
 						className='hidden'
 						disabled={isLoading}
@@ -32,10 +33,12 @@ export function FileUploader({ onDataLoaded }: FileUploaderProps) {
 						onClick={handleButtonClick}
 						className='w-[350px] border p-3 rounded-md cursor-pointer mt-1 bg-white/10 text-white hover:bg-white/20 transition-colors truncate disabled:opacity-50 disabled:cursor-wait'
 						disabled={isLoading}>
-						{isLoading ? 'Processando arquivo...' : fileName}
+						{isLoading ? 'Processing file...' : buttonTitle}
 					</button>
 				</div>
-				<small className='text-sm text-gray-400'>Suporta apenas arquivos CSV/TSV.</small>
+				<small className='text-sm text-gray-400'>
+					Supports CSV, TSV, and Excel files (.xls, .xlsx).
+				</small>
 			</label>
 		</div>
 	);
