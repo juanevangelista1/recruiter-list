@@ -27,7 +27,7 @@ export function RecruiterItem({ recruiter }: RecruiterItemProps) {
 	const buttonText = sent ? 'Solicitação Enviada' : 'Abrir no LinkedIn';
 
 	return (
-		<div className='flex items-center justify-between w-full'>
+		<div className='flex items-center justify-between w-full min-w-0'>
 			<div className='flex flex-col flex-grow min-w-0 mr-4'>
 				<a
 					href={sanitizeUrl(recruiter.linkedin)}

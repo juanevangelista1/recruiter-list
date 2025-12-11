@@ -6,30 +6,47 @@ interface PaginationControlsProps {
 	onPageChange: (page: number) => void;
 }
 
-function getPaginationRange(currentPage: number, totalPages: number, siblings: number = 2) {
-	const range = [];
-
-	range.push(1);
-
-	const start = Math.max(2, currentPage - siblings);
-	const end = Math.min(totalPages - 1, currentPage + siblings);
-
-	if (start > 2) {
-		range.push(null);
+function getVisiblePages(currentPage: number, totalPages: number): (number | '...')[] {
+	const maxVisiblePages = 7;
+	if (totalPages <= maxVisiblePages) {
+		return Array.from({ length: totalPages }, (_, i) => i + 1);
 	}
 
-	for (let i = start; i <= end; i++) {
-		range.push(i);
+	const middle = Math.floor(maxVisiblePages / 2);
+	let startPage = Math.max(1, currentPage - middle + 1);
+	const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+	if (endPage - startPage + 1 < maxVisiblePages) {
+		startPage = Math.max(1, endPage - maxVisiblePages + 1);
 	}
 
-	if (end < totalPages - 1) {
-		range.push(null);
-	}
-	if (totalPages > 1 && !range.includes(totalPages)) {
-		range.push(totalPages);
+	const pages: (number | '...')[] = [];
+
+	for (let i = startPage; i <= endPage; i++) {
+		pages.push(i);
 	}
 
-	return range;
+	if (startPage > 1) {
+		pages.unshift('...');
+		pages.unshift(1);
+	}
+	if (endPage < totalPages) {
+		pages.push('...');
+		pages.push(totalPages);
+	}
+
+	const uniquePages: (number | '...')[] = [];
+	pages.forEach((page, index) => {
+		if (page === '...' && pages[index + 1] === '...') {
+			return;
+		}
+		if (page === pages[index - 1] && typeof page === 'number') {
+			return;
+		}
+		uniquePages.push(page);
+	});
+
+	return uniquePages;
 }
 
 export function PaginationControls({
@@ -39,7 +56,7 @@ export function PaginationControls({
 }: PaginationControlsProps) {
 	if (totalPages <= 1) return null;
 
-	const pagesRange = getPaginationRange(currentPage, totalPages);
+	const pagesRange = getVisiblePages(currentPage, totalPages);
 
 	const buttonClass =
 		'h-10 w-10 mx-0.5 flex justify-center items-center rounded-lg transition-colors font-medium border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500';
@@ -57,10 +74,10 @@ export function PaginationControls({
 			</button>
 
 			{pagesRange.map((page, index) => {
-				if (page === null) {
+				if (page === '...') {
 					return (
 						<span
-							key={index}
+							key={`dots-${index}`}
 							className='text-gray-400 mx-1'>
 							...
 						</span>
@@ -80,7 +97,7 @@ export function PaginationControls({
 			<button
 				onClick={() => onPageChange(currentPage + 1)}
 				disabled={currentPage === totalPages}
-				className={`h-10 px-4 rounded-lg mx-1 ${
+				className={`cursor-pointer h-10 px-4 rounded-lg mx-1 ${
 					currentPage === totalPages ? disabledClass : inactiveClass
 				}`}>
 				Próximo

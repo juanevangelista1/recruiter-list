@@ -6,7 +6,7 @@ import { PaginationControls } from '@/components/paginationControls';
 
 import { useState, useMemo } from 'react';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 10;
 
 export default function Home() {
 	const [recruiters, setRecruiters] = useState<Recruiter[]>([]);
@@ -26,7 +26,7 @@ export default function Home() {
 	};
 
 	return (
-		<div className='container mx-auto p-4'>
+		<div className='container mx-auto p-4 max-w-4xl'>
 			<h1 className='text-3xl font-bold mb-6 text-center text-blue-400'>Recruiter List Manager 📋</h1>
 			<div className='flex flex-col items-center'>
 				<FileUploader onDataLoaded={handleDataLoaded} />
@@ -37,6 +37,8 @@ export default function Home() {
 					<RecruiterList
 						recruiters={currentRecruiters}
 						totalCount={recruiters.length}
+						currentPage={currentPage}
+						itemsPerPage={ITEMS_PER_PAGE}
 					/>
 
 					<PaginationControls
